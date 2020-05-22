@@ -1,0 +1,46 @@
+<table *ngIf="userDetails" class="table table-striped" style="text-align:center;">
+    <thead class="thead-dark">
+        <tr>
+            <th colspan="2" class="text-center">User Profile</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">Name</th>
+            <td>{{userDetails.name}}</td>
+        </tr>
+        <tr>
+            <th scope="row"> UserName</th>
+            <td>{{userDetails.username}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Mobile No.</th>
+            <td>{{userDetails.phone}}</td>
+        </tr>
+        <tr>
+            <th scope="row">Email</th>
+            <td>{{userDetails.email}}</td>
+        </tr>
+        <tr>
+            <th scope="row">AddressLine</th>
+            <td>{{userDetails.address.addressLine}}</td>
+        </tr>
+        <tr>
+            <th scope="row">City</th>
+            <td>{{userDetails.address.city}}</td>
+        </tr>
+        <tr>
+            <th scope="row">State</th>
+            <td>{{userDetails.address.state}}</td>
+        </tr>
+        <tr>
+            <th scope="row">ZipCode</th>
+            <td>{{userDetails.address.zipcode}}</td>
+        </tr>
+        <tr>
+            <td colspan="4" class="text-center">
+                <button type="button" class="btn btn-primary" (click)=onEdit(userDetails)>Edit Profile</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,30 @@
+<div>
+    <img src="assets/img/single_user.png" id="icon" alt="User_Icon" />
+</div>
+
+
+<form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
+    <div class="form-group">
+        <input type="text" class="form-control" #username="ngModel" [(ngModel)]="userservice.loginUser.username"
+            name="username" placeholder="Username" maxlength="15" required
+            [ngClass]="{'invalid-textbox' :signInForm.submitted && !username.valid }">
+        <div *ngIf="signInForm.submitted && username.errors">
+            <label *ngIf="username.errors.required" class="validation-message">Please give username.</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="password" id="myclass" class="form-control" #password="ngModel" [(ngModel)]="userservice.loginUser.password"
+            name="password" placeholder="Password" minlength="6" maxlength="15" required
+            [ngClass]="{'invalid-textbox' :signInForm.submitted && !password.valid }">
+        <div *ngIf="signInForm.submitted && password.errors">
+            <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
+            <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 6 characters.</label>
+        </div>
+    </div>
+    <input type="submit" value="Login">
+</form>
+
+<!-- Error message -->
+<div class="alert" *ngIf="serverErrorMessages">
+    {{serverErrorMessages}}
+</div>

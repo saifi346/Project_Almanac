@@ -1,0 +1,72 @@
+input[type=text] {
+    background-color: #ffffff;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 0px;
+  width: 100%;
+  border: 0px;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  border-radius: 0px;
+}
+
+.filter-link{
+    text-decoration: none;
+}
+
+a.action-btn {
+  margin-top: 12px;
+}
+
+.dark-modal .modal-content {
+  background-color: #292b2c;
+  color: white;
+  
+}
+.dark-modal .close {
+  color: white;
+}
+.light-blue-backdrop {
+  background-color: #5cb3fd;
+}
+
+.modal-body[_ngcontent-cms-c121] {
+  height: 90%;
+  width: 90%;
+}
+
+
+
+
+
+
+.options {
+
+  border: 1px solid #e5e5e5;
+  padding: 10px;
+}
+
+select {
+      font-size: 14px;
+      border: none;
+      width: 100%;
+      background: white;
+  }
+
+  ::ng-deep .my-class .modal-dialog { 
+    max-width: 70%;
+    width: 70%;
+}  
+
+.success{
+  border-radius: 10px;
+  margin-top: 10px;
+}

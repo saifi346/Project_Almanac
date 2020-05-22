@@ -1,0 +1,66 @@
+<div class="container p-t-65">
+    <h3 class="ltext-103 cl5">WishList</h3>
+</div>
+
+<section class="sec-product-detail bg0 p-t-20 p-b-60">
+    <div class="container">
+        <div class="row bor15 m-b-35" *ngFor="let product of this.wishlistService.wishlist.wishlistProducts">
+            <div class="col-md-6 col-lg-3" style="padding-left: 0px;">
+                <div class="p-r-30 p-lr-0-lg">
+
+                    <div class="block2-pic hov-img0">
+                        <img [src]="'data:image/jpeg;base64,' + product.encodedUrl" alt="IMG-PRODUCT">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-9 p-b-30" style="padding-left: 100px;">
+                <div class="p-t-20 p-lr-0-lg">
+                    <h4 class="mtext-105 cl2  p-b-14">
+                        {{product.productName}}
+                    </h4>
+
+                    <span class="mtext-106 cl2">
+                        {{product.price | currency:'&#8377;'}}
+                    </span>
+
+                    <p class="stext-102 cl3 p-t-23">
+                        Hurry up...!! Buy this awesome product only few stock left.
+                    </p>
+
+                    <!--  -->
+                    <div class="p-t-33">
+
+
+                        <div class="flex-w  p-b-10">
+                            <div class="size-204 flex-w flex-m respon6-next">
+
+
+                                <button
+                                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 m-r-20"
+                                    (click)='setProductDetails(product.productName); onView()'>
+                                    View
+                                </button>
+                                <button
+                                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 m-r-20"
+                                    (click)="removeProductFromList(product)">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+</section>

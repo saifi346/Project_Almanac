@@ -1,0 +1,26 @@
+<table class="table table-striped" style="text-align:center;">
+    <thead class="thead-dark">
+        <tr>
+            <th colspan="2" class="text-center">Manage Users</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <th scope="row" >{{user.username}}</th>
+            <td>
+                <a class="action-btn" (click)="viewUser(user)">
+                    <i class="fa fa-eye"></i>
+                </a>
+                <a class="action-btn" (click)="onEdit(user)">
+                    <i class="fa fa-pencil"></i>
+                </a>
+                <a class="action-btn" (click)="deleteUser(user)">
+                    <i class="fa fa-times"></i>
+                </a>
+            </td>
+            
+           
+        </tr>
+        
+    </tbody>
+</table>

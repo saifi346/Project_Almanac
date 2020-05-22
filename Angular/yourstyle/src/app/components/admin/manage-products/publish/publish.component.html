@@ -1,0 +1,63 @@
+<div class="wrapper">
+    <div id="formContent">
+        <div class="head bg-dark">
+            <h1 class="text-white">Publish Product</h1>
+        </div>
+
+        <form #publishProductForm="ngForm" (ngSubmit)="publishProductForm.valid && onSubmit(publishProductForm)">
+            <input type="text" #name="ngModel" [(ngModel)]="productService.selectedProduct.productName"
+                name="productName" placeholder="Product Name" maxlength="30" required
+                [ngClass]="{'invalid-textbox' :publishProductForm.submitted && !name.valid }">
+            <div *ngIf="publishProductForm.submitted && !name.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <!-- <select class="form-control form-control-lg select-grp" #name="ngModel"
+                [(ngModel)]="productService.selectedProduct.category">
+                <option>Select Category</option>
+                <option>Men</option>
+                <option>Women</option>
+                <option>Bag</option>
+                <option>Shoes</option>
+                <option>Watches</option>
+            </select> -->
+            <input type="text" #name="ngModel" [(ngModel)]="productService.selectedProduct.category" name="category"
+                placeholder="Category" maxlength="30" required
+                [ngClass]="{'invalid-textbox' :publishProductForm.submitted && !name.valid }">
+            <div *ngIf="publishProductForm.submitted && !name.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <input type="text" #name="ngModel" [(ngModel)]="productService.selectedProduct.productDescription"
+                name="productDescription" placeholder="Description" maxlength="60" required
+                [ngClass]="{'invalid-textbox' :publishProductForm.submitted && !name.valid }">
+            <div *ngIf="publishProductForm.submitted && !name.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <input type="text" #name="ngModel" [(ngModel)]="productService.selectedProduct.price" name="price"
+                placeholder="price" maxlength="30" required
+                [ngClass]="{'invalid-textbox' :publishProductForm.submitted && !name.valid }">
+            <div *ngIf="publishProductForm.submitted && !name.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <!-- <input type="text" #name="ngModel" [(ngModel)]="productService.selectedProduct.file" name="name" placeholder="Full Name"
+        maxlength="30" required [ngClass]="{'invalid-textbox' :publishProductForm.submitted && !name.valid }">
+    <div *ngIf="publishProductForm.submitted && !name.valid">
+        <label class="validation-message">This field is required.</label>
+    </div> -->
+            <div class="form-group">
+                <input type="file" id="file" (change)="onFileSelected($event)">
+            </div>
+            <input type="submit" value="Publish Product">
+        </form>
+
+        <!-- Success message -->
+        <div class="success" *ngIf="showSucessMessage">
+            Saved successfully
+        </div>
+
+        <!-- Error message -->
+        <div class="alert" *ngIf="serverErrorMessages">
+            {{serverErrorMessages}}
+        </div>
+
+    </div>
+</div>

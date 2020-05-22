@@ -1,0 +1,8 @@
+.head {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+input[type="text"]:disabled {
+    background: #ccc;
+  }
