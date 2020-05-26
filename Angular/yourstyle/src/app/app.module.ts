@@ -3,17 +3,16 @@ import { AuthGuard } from './auth/auth.guard';
 import { UserServiceService } from './service/user-service.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UserComponent } from './components/user/user.component';
 import { SignUpComponent } from './components/user/sign-up/sign-up.component';
 import { SignInComponent } from './components/user/sign-in/sign-in.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -31,27 +30,28 @@ import { ProductDetailComponent } from './components/products/product-detail/pro
 import { CartComponent } from './components/cart/cart.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { AboutComponent } from './components/about/about.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { DeliveryDetailsComponent } from './components/delivery-details/delivery-details.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 
 const routes: Routes = [
   {
-    path: 'signup', component: UserComponent,
-    children: [{ path: '', component: SignUpComponent }]
+    path: 'signup', component: SignUpComponent,
   },
   {
-    path: 'login', component: UserComponent,
-    children: [{ path: '', component: SignInComponent }]
+    path: 'login', component: SignInComponent,
   },
   {
     path: 'logout', component: LogoutComponent,
   },
   {
-    path: 'userprofile', component: UserProfileComponent,canActivate : [AuthGuard]
+    path: 'userprofile', component: UserProfileComponent, canActivate: [AuthGuard]
   },
   {
-    path: 'updateprofile', component: UpdateProfileComponent,canActivate : [AuthGuard],
+    path: 'updateprofile', component: UpdateProfileComponent, canActivate: [AuthGuard],
   },
   {
-    path: 'manageusers', component: ManageUserComponent,canActivate : [AuthGuard]
+    path: 'manageusers', component: ManageUserComponent, canActivate: [AuthGuard]
   },
   {
     path: 'products', component: ProductsComponent,
@@ -75,13 +75,22 @@ const routes: Routes = [
     path: 'wishlist', component: WishlistComponent,
   },
   {
+    path: 'delivery', component: DeliveryDetailsComponent,
+  },
+  {
+    path: 'orderDetail', component: OrderDetailsComponent,
+  },
+  {
     path: 'about', component: AboutComponent
+  },
+  {
+    path: 'contact', component: ContactComponent
   },
   {
     path: 'home', component: HomeComponent
   },
   {
-    path: '', redirectTo: '/home' , pathMatch: 'full',
+    path: '', redirectTo: '/home', pathMatch: 'full',
   }
 
 
@@ -91,7 +100,6 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    UserComponent,
     SignUpComponent,
     SignInComponent,
     UserProfileComponent,
@@ -108,7 +116,10 @@ const routes: Routes = [
     ProductDetailComponent,
     CartComponent,
     WishlistComponent,
-    AboutComponent
+    AboutComponent,
+    ContactComponent,
+    DeliveryDetailsComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -123,7 +134,7 @@ const routes: Routes = [
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  },UserServiceService, AuthGuard, AuthInterceptor],
+  }, UserServiceService, AuthGuard, AuthInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

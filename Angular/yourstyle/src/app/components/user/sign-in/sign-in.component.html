@@ -1,30 +1,68 @@
-<div>
-    <img src="assets/img/single_user.png" id="icon" alt="User_Icon" />
-</div>
+<!-- Content page -->
+<section class="bg0 p-t-104 p-b-116">
+    <div class="container">
+        <div class="flex-w flex-tr">
+            <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
+                <form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
+                    <h4 class=" mtext-105 cl2 txt-center p-b-30">
+                        Login
+                    </h4>
+                    <div class="bor8 m-b-20 how-pos4-parent">
 
+                        <input type="text" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" #username="ngModel"
+                            [(ngModel)]="userservice.loginUser.username" name="username" placeholder="Username"
+                            maxlength="15" required
+                            [ngClass]="{'invalid-textbox' :signInForm.submitted && !username.valid }">
+                        <div *ngIf="signInForm.submitted && username.errors">
+                            <label *ngIf="username.errors.required" class="validation-message">Please give
+                                username.</label>
+                        </div>
+                    </div>
+                    <div class="bor8 m-b-20 how-pos4-parent">
+                        <input type="password" class="stext-111 cl2 plh3 size-116 p-l-62 p-r-30" 
+                            #password="ngModel" [(ngModel)]="userservice.loginUser.password" name="password"
+                            placeholder="Password" minlength="6" maxlength="15" required
+                            [ngClass]="{'invalid-textbox' :signInForm.submitted && !password.valid }">
+                        <div *ngIf="signInForm.submitted && password.errors">
+                            <label *ngIf="password.errors.required" class="validation-message">This field is
+                                required.</label>
+                            <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 6
+                                characters.</label>
+                        </div>
+                    </div>
+                    <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer m-b-20"
+                        type="submit">
+                        Login
+                    </button>
+                </form>
+                <!-- Error message -->
+                <div class="alert" *ngIf="serverErrorMessages">
+                    {{serverErrorMessages}}
+                </div>
+            </div>
 
-<form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
-    <div class="form-group">
-        <input type="text" class="form-control" #username="ngModel" [(ngModel)]="userservice.loginUser.username"
-            name="username" placeholder="Username" maxlength="15" required
-            [ngClass]="{'invalid-textbox' :signInForm.submitted && !username.valid }">
-        <div *ngIf="signInForm.submitted && username.errors">
-            <label *ngIf="username.errors.required" class="validation-message">Please give username.</label>
+            <div class="size-210 bor10 flex-w  p-lr-93 p-t-50 p-lr-15-lg w-full-md"
+                style="background-image: url('assets/images/gallery-04.jpg');">
+                <div class="flex-w w-full p-b-42">
+                    <span class="fs-18 txt-center size-211" style="color: #333333;">
+
+                    </span>
+
+                    <div class="size-212 p-t-2">
+                        <h4 class="mtext-105  txt-center p-b-30" style="font-size: 30px;color: #333333;">
+                            New here?
+                        </h4>
+                        <p class="stext-105" style="font-size: 14px;color: #333333;">Sign up and discover great
+                            Collection that matches your style!</p>
+                        <button
+                            class="flex-c-m stext-101 cl0 size-101 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer m-b-20"
+                            type="submit" (click)="signUp()">
+                            Sign Up
+                        </button>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <input type="password" id="myclass" class="form-control" #password="ngModel" [(ngModel)]="userservice.loginUser.password"
-            name="password" placeholder="Password" minlength="6" maxlength="15" required
-            [ngClass]="{'invalid-textbox' :signInForm.submitted && !password.valid }">
-        <div *ngIf="signInForm.submitted && password.errors">
-            <label *ngIf="password.errors.required" class="validation-message">This field is required.</label>
-            <label *ngIf="password.errors.minlength" class="validation-message">Enter atleast 6 characters.</label>
-        </div>
-    </div>
-    <input type="submit" value="Login">
-</form>
-
-<!-- Error message -->
-<div class="alert" *ngIf="serverErrorMessages">
-    {{serverErrorMessages}}
-</div>
+</section>

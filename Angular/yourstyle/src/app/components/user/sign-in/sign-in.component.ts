@@ -43,6 +43,10 @@ export class SignInComponent implements OnInit {
     )
   }
 
+  signUp(){
+    this.router.navigateByUrl('/signup');
+  }
+
 
 
 }

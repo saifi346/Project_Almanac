@@ -94,13 +94,20 @@
                             </span>
                         </div>
 
-                        <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
-                            <p class="stext-111 cl6 p-t-2">
-                                Please double check your address, or contact us if you need any help.
-                            </p>
-
-
+                        <div class="size-209 ">
+                            <span class="mtext-110 cl2">
+                                {{shipping | currency:'&#8377;'}}
+                            </span>
+                            <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
+                                <p class="stext-111 cl6 p-t-2">
+                                    free Shipping Above &#8377; 1000.
+                                </p>
+    
+    
+                            </div>
                         </div>
+
+                        
                     </div>
 
                     <div class="flex-w flex-t p-t-27 p-b-33">
@@ -112,12 +119,12 @@
 
                         <div class="size-209 p-t-1">
                             <span class="mtext-110 cl2">
-                                {{sumTotal | currency:'&#8377;'}}
+                                {{total | currency:'&#8377;'}}
                             </span>
                         </div>
                     </div>
 
-                    <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                    <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" (click)="Checkout()">
                         Proceed to Checkout
                     </button>
                 </div>

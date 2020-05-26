@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CartProduct } from './../../models/cart-product';
 import { ProductServiceService } from './../../service/product-service.service';
 import { NgForm } from '@angular/forms';
@@ -15,7 +16,7 @@ export class CartComponent implements OnInit {
   cart: Cart;
 
 
-  constructor(public cartService: CartService, private userService: UserServiceService, private productService: ProductServiceService) { }
+  constructor(public cartService: CartService, private userService: UserServiceService, private productService: ProductServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.getCartproducts();
@@ -44,14 +45,20 @@ export class CartComponent implements OnInit {
     this.productService.setProdName(name);
   }
   sumTotal: number = 0;
+  shipping: number = 0;
+  total: number = 0;
   cartTotal(products: CartProduct[]) {
     for (var i = 0; i < products.length; i++) {
       var sum = products[i].price * products[i].quantity;
       this.sumTotal += sum;
     }
+    if (this.sumTotal < 1000 && products.length > 0) {
+      this.shipping = 200;
+    }
+    this.total = this.sumTotal + this.shipping;
   }
 
-  quantity: number[] =new Array();
+  quantity: number[] = new Array();
   productQuantity(products: CartProduct[]) {
     for (var i = 0; i <= products.length; i++) {
       this.quantity[i] = products[i].quantity;
@@ -67,15 +74,15 @@ export class CartComponent implements OnInit {
     this.quantity[i] += 1;
   }
 
-  updateCart(){
+  updateCart() {
     for (var i = 0; i < this.quantity.length; i++) {
       this.cartService.cartproduct.products[i].quantity = this.quantity[i];
     }
     this.cartService.updateCart(this.cartService.cartproduct).subscribe(
-      res=>{
+      res => {
         console.log(res);
       },
-      err=>{
+      err => {
         console.log(err);
       }
     );
@@ -83,4 +90,7 @@ export class CartComponent implements OnInit {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   }
 
+  Checkout() {
+    this.router.navigateByUrl('/delivery');
+  }
 }
