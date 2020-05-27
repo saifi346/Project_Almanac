@@ -21,6 +21,7 @@ export class PublishComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     const fd = new FormData();
+    this.colorAndSize();
     fd.append('file', this.selectedFile)
     this.productService.publishPhoto(fd).subscribe(
       res => {
@@ -49,16 +50,53 @@ export class PublishComponent implements OnInit {
 
   resetForm(form: NgForm) {
     this.productService.selectedProduct = {
-      id : '',
+      id: '',
       title: '',
       productName: '',
       category: '',
       productDescription: '',
       price: null,
+      stock: null,
+      weight: '',
+      dimensions: '',
+      materials: '',
+      color: null,
+      size: null,
       encodedImage: ''
     };
     form.resetForm();
     this.serverErrorMessages = '';
   }
 
+  colors: Array<string> = [];
+  checkColorBoxvalue(event) {
+    if (event.target.checked) {
+      this.colors.push(event.target.value);
+    }
+    else {
+      const index: number = this.colors.indexOf(event.target.value);
+      this.colors.splice(index, 1);
+    }
+  }
+
+  size: Array<string> = [];
+  checkSizeBoxvalue(event) {
+    if (event.target.checked) {
+      this.size.push(event.target.value);
+    }
+    else {
+      const index: number = this.colors.indexOf(event.target.value);
+      this.size.splice(index, 1);
+    }
+  }
+
+  colorAndSize(){
+    this.productService.selectedProduct.color = this.colors;
+    this.productService.selectedProduct.size = this.size;
+  }
+  
 }
+
+
+
+

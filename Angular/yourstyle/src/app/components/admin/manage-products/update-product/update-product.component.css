@@ -6,3 +6,8 @@
 input[type="text"]:disabled {
     background: #ccc;
   }
+
+  input[type=checkbox]{
+    margin-left: 10px;
+    margin-top: 5px;
+}

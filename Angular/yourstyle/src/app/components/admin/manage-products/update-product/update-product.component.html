@@ -6,7 +6,7 @@
 
         <form #publishProductForm="ngForm" (ngSubmit)="publishProductForm.valid && onSubmit(publishProductForm)">
             <input type="text" #name="ngModel" [(ngModel)]="productService.selectedProduct.productName"
-                name="productName" placeholder="Product Name" maxlength="30" disabled 
+                name="productName" placeholder="Product Name" maxlength="30" disabled
                 [ngClass]="{'invalid-textbox' :publishProductForm.submitted && !name.valid }">
             <div *ngIf="publishProductForm.submitted && !name.valid">
                 <label class="validation-message">This field is required.</label>
@@ -21,7 +21,7 @@
                 <option>Watches</option>
             </select> -->
             <input type="text" #name="ngModel" [(ngModel)]="productService.selectedProduct.category" name="category"
-                placeholder="Category" maxlength="30" disabled 
+                placeholder="Category" maxlength="30" disabled
                 [ngClass]="{'invalid-textbox' :publishProductForm.submitted && !name.valid }">
             <div *ngIf="publishProductForm.submitted && !name.valid">
                 <label class="validation-message">This field is required.</label>
@@ -43,7 +43,55 @@
     <div *ngIf="publishProductForm.submitted && !name.valid">
         <label class="validation-message">This field is required.</label>
     </div> -->
-            
+            <input type="text" #name="ngModel" [(ngModel)]="productService.selectedProduct.stock" name="stock"
+                placeholder="stock" maxlength="30" required
+                [ngClass]="{'invalid-textbox' :publishProductForm.submitted && !name.valid }">
+            <div *ngIf="publishProductForm.submitted && !name.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <input type="text" #name="ngModel" [(ngModel)]="productService.selectedProduct.weight" name="weight"
+                placeholder="weight(in kg)" maxlength="30" required disabled
+                [ngClass]="{'invalid-textbox' :publishProductForm.submitted && !name.valid }">
+            <div *ngIf="publishProductForm.submitted && !name.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <input type="text" #name="ngModel" [(ngModel)]="productService.selectedProduct.dimensions" name="dimensions"
+                placeholder="dimensions(in cm)" maxlength="30" required disabled
+                [ngClass]="{'invalid-textbox' :publishProductForm.submitted && !name.valid }">
+            <div *ngIf="publishProductForm.submitted && !name.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <input type="text" #name="ngModel" [(ngModel)]="productService.selectedProduct.materials" name="materials"
+                placeholder="materials" maxlength="30" required disabled
+                [ngClass]="{'invalid-textbox' :publishProductForm.submitted && !name.valid }">
+            <div *ngIf="publishProductForm.submitted && !name.valid">
+                <label class="validation-message">This field is required.</label>
+            </div>
+            <div class="form-check" style="text-align: left;">
+                <label style="margin-left: 25px; font-size: 20px;font-weight: bold;">Select Colors</label><br>
+                <input (change)="checkColorBoxvalue($event)" type="checkbox" value="Black" class="form-check-input">
+                <label style="margin-left: 25px;">Black</label><br>
+                <input (change)="checkColorBoxvalue($event)" type="checkbox" value="White" class="form-check-input">
+                <label style="margin-left: 25px;">White</label><br>
+                <input (change)="checkColorBoxvalue($event)" type="checkbox" value="Red" class="form-check-input">
+                <label style="margin-left: 25px;">Red</label><br>
+                <input (change)="checkColorBoxvalue($event)" type="checkbox" value="Blue" class="form-check-input">
+                <label style="margin-left: 25px;">Blue</label><br>
+                <input (change)="checkColorBoxvalue($event)" type="checkbox" value="Green" class="form-check-input">
+                <label style="margin-left: 25px;">Green</label><br>
+            </div>
+            <div class="form-check" style="text-align: left;">
+                <label style="margin-left: 25px; font-size: 20px;font-weight: bold;">Select Size</label><br>
+                <input (change)="checkSizeBoxvalue($event)" type="checkbox" value="XL" class="form-check-input">
+                <label style="margin-left: 25px;">XL</label><br>
+                <input (change)="checkSizeBoxvalue($event)" type="checkbox" value="L" class="form-check-input">
+                <label style="margin-left: 25px;">L</label><br>
+                <input (change)="checkSizeBoxvalue($event)" type="checkbox" value="M" class="form-check-input">
+                <label style="margin-left: 25px;">M</label><br>
+                <input (change)="checkSizeBoxvalue($event)" type="checkbox" value="S" class="form-check-input">
+                <label style="margin-left: 25px;">S</label><br>
+            </div>
+
             <input type="submit" value="Update Product">
         </form>
 

@@ -3,6 +3,7 @@ package com.yourstyle.service;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,12 +35,35 @@ public class ProductService {
 	}
 
 	public Product getProductByName(String Productname) throws ProductNotFoundException {
+		
 		Optional<Product> Product = repo.findByProductName(Productname);
 		if (Product.isPresent()) {
 			return Product.get();
 		} else {
 			throw new ProductNotFoundException("No record Found for the Product : " + Productname);
 		}
+	}
+	
+	public List<Product> searchProductsByName(String Productname) throws ProductNotFoundException {
+		List<Product> products = repo.findAll();
+		List<String> prodNames = new ArrayList<>();
+		for (Product product : products) {
+			if (product.getProductName().toLowerCase().contains(Productname.toLowerCase())) {
+				prodNames.add(product.getProductName());
+			}
+		}
+		List<Product> temp = new ArrayList<>();
+		for (String name : prodNames) {
+			Optional<Product> Product = repo.findByProductName(name);
+			if (Product.isPresent()) {
+				temp.add(Product.get());
+			} else
+
+			{
+				throw new ProductNotFoundException("No record Found for the Product : " + Productname);
+			}
+		}
+		return temp;
 	}
 
 	public List<Product> getProductsByCategory(String category) throws ProductNotFoundException {
@@ -97,7 +121,7 @@ public class ProductService {
 		dbObject.put("contentType", file.getContentType());
 		dbObject.put("size", file.getSize());
 		ObjectId id = gridFsTemplate.store(file.getInputStream(), file.getOriginalFilename(), dbObject);
-		System.out.println(id.toString());
+		//System.out.println(id.toString());
 	}
 	 
 
@@ -130,14 +154,14 @@ public class ProductService {
 		 * streamToDownloadTo.write(buffer); streamToDownloadTo.close();
 		 */
 
-		System.out.println("File name : " + dbFile.getFilename());
+		//System.out.println("File name : " + dbFile.getFilename());
 		return bytesss;
 	}
 
 	
 	public void deleteImageFile(String fileName) throws IOException {
 		gridFsTemplate.delete(new Query(Criteria.where("filename").is(fileName)));
-		System.out.println("File name : " + fileName);
+		//System.out.println("File name : " + fileName);
 	}
 	 
 

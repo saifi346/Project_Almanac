@@ -1,3 +1,4 @@
+import { CartService } from './../../service/cart.service';
 import { Router } from '@angular/router';
 import { Address } from './../../models/address';
 import { NgForm } from '@angular/forms';
@@ -11,18 +12,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeliveryDetailsComponent implements OnInit {
 
-  address : any;
+  address: any;
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  constructor(public userservice : UserServiceService,private router : Router) { }
+  constructor(public userservice: UserServiceService, private cartService: CartService, private router: Router) { }
 
   ngOnInit(): void {
     this.getUserDetails();
   }
 
- 
 
-  getUserDetails(){
+
+  getUserDetails() {
     this.userservice.getUserProfile(this.userservice.getUserName()).subscribe(
       res => {
         this.userservice.selectedUser.name = res['name'];
@@ -34,15 +35,31 @@ export class DeliveryDetailsComponent implements OnInit {
         this.userservice.selectedUser.address.state = this.address.state;
         this.userservice.selectedUser.address.zipcode = this.address.zipcode;
       },
-      err => { 
+      err => {
         console.log(err);
-        
+
       }
     );
   }
-  
-  onSubmit(form : NgForm){
-      this.router.navigateByUrl('/orderDetail');
+
+  onSubmit(form: NgForm) {
+    this.updateCart();
+    this.router.navigateByUrl('/orderDetail');
+  }
+
+  updateCart() {
+    for (var i = 0; i < this.cartService.cartproduct.products.length; i++) {
+      this.cartService.cartproduct.products[i].quantity = 0;
+    }
+    this.cartService.updateCart(this.cartService.cartproduct).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+    
   }
 
 }

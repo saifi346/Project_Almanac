@@ -98,9 +98,9 @@ export class ProductsComponent implements OnInit {
   }
 
   getProductByName() {
-    this.productService.getProductByName(this.productService.selectedProduct.productName).subscribe(
+    this.productService.searchProductsByName(this.productService.selectedProduct.productName).subscribe(
       res => {
-        this.productService.products = [res];
+        this.productService.products = res;
         this.productService.selectedProduct.productName = '';
       },
       err => {

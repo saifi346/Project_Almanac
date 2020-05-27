@@ -377,10 +377,7 @@
                                                 <div class="bor8 bg0">
                                                     <select class="options">
                                                         <option>Choose an option</option>
-                                                        <option>Size S</option>
-                                                        <option>Size M</option>
-                                                        <option>Size L</option>
-                                                        <option>Size XL</option>
+                                                        <option *ngFor="let size of product.size">{{size}}</option>
                                                     </select>
 
                                                 </div>
@@ -396,10 +393,7 @@
                                                 <div class="rs1-select2 bor8 bg0">
                                                     <select class="options">
                                                         <option>Choose an option</option>
-                                                        <option>Red</option>
-                                                        <option>Blue</option>
-                                                        <option>White</option>
-                                                        <option>Grey</option>
+                                                        <option *ngFor="let color of product.color">{{color}}</option>
                                                     </select>
 
                                                 </div>

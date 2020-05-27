@@ -46,12 +46,20 @@ public class ProductController {
 		return new ResponseEntity<>(products, new HttpHeaders(), HttpStatus.OK);
 	}
 
+	@GetMapping("/product/search/{productName}")
+	public ResponseEntity<List<Product>> searchProductsByName(@PathVariable("productName") String productName)
+			throws ProductNotFoundException {
+		List<Product> products = service.searchProductsByName(productName);
+
+		return new ResponseEntity<>(products, new HttpHeaders(), HttpStatus.OK);
+	}
+	
 	@GetMapping("/product/{productName}")
 	public ResponseEntity<Product> getProductByName(@PathVariable("productName") String productName)
 			throws ProductNotFoundException {
-		Product product = service.getProductByName(productName);
+		Product products = service.getProductByName(productName);
 
-		return new ResponseEntity<>(product, new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<>(products, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@PostMapping("/publishProduct")
@@ -62,6 +70,13 @@ public class ProductController {
 
 	@PutMapping("/updateProduct/{productName}")
 	public ResponseEntity<?> updateProduct(@PathVariable("productName") String productName,
+			@RequestBody Product product) throws ProductNotFoundException {
+		service.updateProduct(productName, product);
+		return ResponseEntity.ok(new MessageResponse("product updated successfully!"));
+	}
+	
+	@PutMapping("/updateProductStock/{productName}")
+	public ResponseEntity<?> updateProductStock(@PathVariable("productName") String productName,
 			@RequestBody Product product) throws ProductNotFoundException {
 		service.updateProduct(productName, product);
 		return ResponseEntity.ok(new MessageResponse("product updated successfully!"));

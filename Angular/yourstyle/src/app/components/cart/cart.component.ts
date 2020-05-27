@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
   cart: Cart;
-
+  msg: string;
 
   constructor(public cartService: CartService, private userService: UserServiceService, private productService: ProductServiceService, private router: Router) { }
 
@@ -91,6 +91,11 @@ export class CartComponent implements OnInit {
   }
 
   Checkout() {
-    this.router.navigateByUrl('/delivery');
+    if (this.cartService.cartproduct.products.length>0) {
+      this.router.navigateByUrl('/delivery');
+    }
+    else {
+      this.msg = 'Please add something to cart';
+    }
   }
 }

@@ -19,6 +19,7 @@ export class UpdateProductComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    this.colorAndSize();
     this.productService.updateProduct(this.productService.selectedProduct).subscribe(
       res => {
         this.showSucessMessage = true;
@@ -34,15 +35,48 @@ export class UpdateProductComponent implements OnInit {
 
   resetForm(form: NgForm) {
     this.productService.selectedProduct = {
-      id : '',
+      id: '',
       title: '',
       productName: '',
       category: '',
       productDescription: '',
       price: null,
+      stock: null,
+      weight: '',
+      dimensions: '',
+      materials: '',
+      color: null,
+      size: null,
       encodedImage: ''
     };
     form.resetForm();
     this.serverErrorMessages = '';
+  }
+
+  colors: Array<string> = [];
+  checkColorBoxvalue(event) {
+    if (event.target.checked) {
+      this.colors.push(event.target.value);
+    }
+    else {
+      const index: number = this.colors.indexOf(event.target.value);
+      this.colors.splice(index, 1);
+    }
+  }
+
+  size: Array<string> = [];
+  checkSizeBoxvalue(event) {
+    if (event.target.checked) {
+      this.size.push(event.target.value);
+    }
+    else {
+      const index: number = this.colors.indexOf(event.target.value);
+      this.size.splice(index, 1);
+    }
+  }
+
+  colorAndSize(){
+    this.productService.selectedProduct.color = this.colors;
+    this.productService.selectedProduct.size = this.size;
   }
 }

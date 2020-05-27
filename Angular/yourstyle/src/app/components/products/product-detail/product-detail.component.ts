@@ -159,6 +159,31 @@ export class ProductDetailComponent implements OnInit {
     )
   }
 
+  //out of stock logic
+  // var stock = this.product.stock;
+  //   stock -= this.cartService.selectedCartProduct.quantity;
+  //   if (stock >= 0) {
+  //     this.product.stock=stock;
+  //     this.cartService.addtoCart(this.cartService.cartproduct).subscribe(
+  //       res => {
+  //         console.log(res);
+  //         this.message = res['message'];
+  //         this.showSucessMessage = true;
+  //         setTimeout(() => this.showSucessMessage = false, 4000);
+  //       },
+  //       err => {
+  //         console.log(err);
+  //       }
+  //     );
+  //     this.productService.updateProductStock(this.product).subscribe(
+  //       res => {
+  //         console.log(res);
+  //       },
+  //       err => {
+  //         console.log(err);
+  //       }
+  //     );
+  //   }
   //add product to wishlist
   addProductToWishlist(product) {
     this.wishlistService.selectedWishlistProduct.productName = product.productName;
