@@ -1,0 +1,21 @@
+select {
+    font-size: 14px;
+    border: none;
+    width: 100%;
+    background: white;
+}
+
+.size-204 {
+    width: 30%;
+    margin-left: 24px;
+    margin-bottom: 20px;
+}
+
+option.none{
+	display: none;
+}
+
+.success{
+    border-radius: 10px;
+    margin-top: 10px;
+}

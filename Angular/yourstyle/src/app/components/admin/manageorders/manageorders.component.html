@@ -1,0 +1,97 @@
+<!-- Shoping Cart -->
+<form class="bg0 p-t-75 p-b-85">
+    <div class="container">
+        <h3 class="ltext-103 cl5" style="margin-left:20px; margin-bottom:20px;">Orders</h3>
+        <div class="size-204 respon6-next">
+            <div class="rs1-select2 bor8 bg0">
+                <select class="options" (change)="selectStatusHandler($event)" required>
+                    <option>Active</option>
+                    <option>Packing</option>
+                    <option>Dispatched</option>
+                    <option>Delivered</option>
+                    <option>Cancel</option>
+                </select>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-xl-12 m-lr-auto m-b-50">
+                <div class="m-l-25 m-r--38 m-lr-0-xl">
+                    <div class="wrap-table-shopping-cart">
+                        <table class="table-shopping-cart">
+                            <tr class="table_head">
+                                <th class="column-1">OrderId</th>
+                                <th class="column-5">Product</th>
+                                <th class="column-5">Size</th>
+                                <th class="column-5">Color</th>
+                                <th class="column-5">Quantity</th>
+                                <th class="column-5">Delivery Address</th>
+                                <th class="column-5">Status</th>
+                            </tr>
+
+                            <tr class="table_row" *ngFor='let product of order'>
+                                <td class="column-5"> {{product.orderId}}</td>
+                                <td class="column-2"><a routerLink='/product-details'
+                                        (click)="setProductDetails(product.productName)">{{product.productName}}</a>
+                                </td>
+                                <td class="column-5"> {{product.size}}</td>
+                                <td class="column-5"> {{product.color}} </td>
+                                <td class="column-5">{{product.quantity}}</td>
+                                <td class="column-5">{{product.deliveryAddress}}</td>
+                                <td class="column-1"><select class="options"
+                                        (change)="selectProductStatusHandler($event)" required>
+                                        <option class="none">{{product.status}}</option>
+                                        <option>Active</option>
+                                        <option>Packing</option>
+                                        <option>Dispatched</option>
+                                        <option>Delivered</option>
+                                        <option disabled>Cancel</option>
+                                    </select>
+                                    <div class="flex-w flex-m m-r-20 m-t-40">
+
+                                        <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10"
+                                            (click)="changeOrderStatus(product.username,product.orderId)">
+                                            update
+                                        </div>
+                                    </div>
+                                   
+                                </td>
+
+                            </tr>
+
+
+                        </table>
+                    </div>
+
+                    <!-- <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+                        <div  *ngIf="this.userService.isLoggedIn()" class="flex-w flex-m m-r-20 m-tb-5">
+                            <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
+                                name="coupon" placeholder="Coupon Code">
+
+                            <div
+                                class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+                                Apply coupon
+                            </div>
+                            <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10"
+                            (click)="updateCart()">
+								Update Cart
+							</div>
+                        </div>
+                        <div  *ngIf="!this.userService.isLoggedIn()" class="flex-w flex-m m-r-20 m-tb-5">
+                            <p class="stext-102 cl6 p-t-2" style="font-size: 18px;">
+                                Please login first to add products to cart...... &nbsp;&nbsp;&nbsp;&nbsp;
+                            </p>
+                        <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10"
+                        (click)="login()">
+                            Login
+                        </div>
+                    </div>
+                    </div> -->
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</form>

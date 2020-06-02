@@ -1,8 +1,19 @@
 <div class="container p-t-65">
     <h3 class="ltext-103 cl5">WishList</h3>
+    <div  *ngIf="!this.userService.isLoggedIn()" class="flex-w flex-m m-r-20 m-tb-5">
+        <p class="stext-102 cl6 p-t-2" style="font-size: 18px;">
+            Please login first to add products to wishlist...... &nbsp;&nbsp;&nbsp;&nbsp;
+        </p>
+    <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10"
+    (click)="login()">
+        Login
+    </div>
+</div>
 </div>
 
-<section class="sec-product-detail bg0 p-t-20 p-b-60">
+
+
+<section *ngIf="this.userService.isLoggedIn()" class="sec-product-detail bg0 p-t-20 p-b-60">
     <div class="container">
         <div class="row bor15 m-b-35" *ngFor="let product of this.wishlistService.wishlist.wishlistProducts">
             <div class="col-md-6 col-lg-3" style="padding-left: 0px;">

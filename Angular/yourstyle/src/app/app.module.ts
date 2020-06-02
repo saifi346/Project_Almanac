@@ -33,6 +33,8 @@ import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { DeliveryDetailsComponent } from './components/delivery-details/delivery-details.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { ManageordersComponent } from './components/admin/manageorders/manageorders.component';
 
 const routes: Routes = [
   {
@@ -81,6 +83,12 @@ const routes: Routes = [
     path: 'orderDetail', component: OrderDetailsComponent,
   },
   {
+    path: 'order', component: OrdersComponent,
+  },
+  {
+    path: 'manageorders', component: ManageordersComponent,
+  },
+  {
     path: 'about', component: AboutComponent
   },
   {
@@ -119,7 +127,9 @@ const routes: Routes = [
     AboutComponent,
     ContactComponent,
     DeliveryDetailsComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    OrdersComponent,
+    ManageordersComponent
   ],
   imports: [
     BrowserModule,

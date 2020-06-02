@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WishlistComponent implements OnInit {
 
-  constructor(public wishlistService: WishlistService, private productService: ProductServiceService, private userService: UserServiceService, private router: Router) { }
+  constructor(public wishlistService: WishlistService, private productService: ProductServiceService, public userService: UserServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.getWishlist();
@@ -50,6 +50,10 @@ export class WishlistComponent implements OnInit {
 
   setProductDetails(name) {
     this.productService.setProdName(name);
+  }
+
+  login(){
+    this.router.navigateByUrl('/login');
   }
 
 }

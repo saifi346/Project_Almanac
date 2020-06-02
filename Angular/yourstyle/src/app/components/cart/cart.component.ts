@@ -16,7 +16,7 @@ export class CartComponent implements OnInit {
   cart: Cart;
   msg: string;
 
-  constructor(public cartService: CartService, private userService: UserServiceService, private productService: ProductServiceService, private router: Router) { }
+  constructor(public cartService: CartService, public userService: UserServiceService, private productService: ProductServiceService, private router: Router) { }
 
   ngOnInit(): void {
     this.getCartproducts();
@@ -97,5 +97,9 @@ export class CartComponent implements OnInit {
     else {
       this.msg = 'Please add something to cart';
     }
+  }
+
+  login(){
+    this.router.navigateByUrl('/login');
   }
 }

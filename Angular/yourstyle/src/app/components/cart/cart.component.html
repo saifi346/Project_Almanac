@@ -13,7 +13,7 @@
                                 <th class="column-4">Quantity</th>
                                 <th class="column-5">Total</th>
                             </tr>
-
+                            
                             <tr class="table_row" *ngFor='let product of this.cartService.cartproduct.products;let i = index'>
                                 <td class="column-1">
                                     <div class="how-itemcart1">
@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-                        <div class="flex-w flex-m m-r-20 m-tb-5">
+                        <div  *ngIf="this.userService.isLoggedIn()" class="flex-w flex-m m-r-20 m-tb-5">
                             <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
                                 name="coupon" placeholder="Coupon Code">
 
@@ -61,8 +61,15 @@
 								Update Cart
 							</div>
                         </div>
-
-
+                        <div  *ngIf="!this.userService.isLoggedIn()" class="flex-w flex-m m-r-20 m-tb-5">
+                            <p class="stext-102 cl6 p-t-2" style="font-size: 18px;">
+                                Please login first to add products to cart...... &nbsp;&nbsp;&nbsp;&nbsp;
+                            </p>
+                        <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10"
+                        (click)="login()">
+                            Login
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -130,5 +137,6 @@
                 </div>
             </div>
         </div>
+       
     </div>
 </form>

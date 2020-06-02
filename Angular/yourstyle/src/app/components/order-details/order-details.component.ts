@@ -14,7 +14,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   onclick() {
-    this.router.navigateByUrl('/products');
+    this.router.navigateByUrl('/order');
   }
 
 }

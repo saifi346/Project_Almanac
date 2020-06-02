@@ -17,6 +17,7 @@ declare const displayFilter: any;
 export class ProductsComponent implements OnInit {
   public isCollapsed = true;
   public isCollapsedFilter = true;
+  serverErrorMessages: string;
   //products: any;
   product: any;
   image: any;
@@ -24,12 +25,12 @@ export class ProductsComponent implements OnInit {
   readonly imageType: string = 'data:image/jpeg;base64,';
   closeResult: string;
   counter: number = 1;
-  selectedSize: string;
-  selectedColor: string;
+  selectedSize: string = '';
+  selectedColor: string = '';
   showSucessMessage: boolean;
   message: string;
-  msg : string;
-  constructor(private userService: UserServiceService, private cartService: CartService, private wishlistService: WishlistService, public productService: ProductServiceService, private router: Router, private modalService: NgbModal) { }
+  msg: string;
+  constructor(public userService: UserServiceService, private cartService: CartService, private wishlistService: WishlistService, public productService: ProductServiceService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     //this.getPhoto();
@@ -59,7 +60,7 @@ export class ProductsComponent implements OnInit {
     else {
       this.getAllProducts();
     }
-    
+
     document.body.scrollTop = document.documentElement.scrollTop = 0;
 
   }
@@ -132,7 +133,7 @@ export class ProductsComponent implements OnInit {
   }
 
   //add product to cart
-  addProductToCart() {
+  addProductToCart(pro: any) {
 
     this.cartService.cartproduct.userName = this.userService.getUserName();
     this.cartService.selectedCartProduct.prodName = this.product.productName;
@@ -142,18 +143,24 @@ export class ProductsComponent implements OnInit {
     this.cartService.selectedCartProduct.size = this.selectedSize;
     this.cartService.selectedCartProduct.imgurl = this.product.encodedImage;
     this.cartService.cartproduct.products = [this.cartService.selectedCartProduct];
-
-    this.cartService.addtoCart(this.cartService.cartproduct).subscribe(
-      res => {
-        console.log(res);
-        this.message = res['message'];
-        this.showSucessMessage = true;
-        setTimeout(() => this.showSucessMessage = false, 4000);
-      },
-      err => {
-        console.log(err);
-      }
-    )
+    if (this.selectedColor != '' && this.selectedColor != 'Choose an option' && this.selectedSize != 'Choose an option'  &&this.selectedSize != '') {
+      this.cartService.addtoCart(this.cartService.cartproduct).subscribe(
+        res => {
+          console.log(res);
+          this.removeProductFromList(pro);
+          this.message = res['message'];
+          this.showSucessMessage = true;
+          this.serverErrorMessages = '';
+          setTimeout(() => this.showSucessMessage = false, 4000);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
+    else {
+      this.serverErrorMessages = 'Please select size and color.';
+    }
   }
 
   //add product to wishlist
@@ -172,6 +179,24 @@ export class ProductsComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  removeProductFromList(product) {
+    this.wishlistService.selectedWishlistProduct.productName = product.productName;
+    this.wishlistService.selectedWishlistProduct.price = product.price;;
+    this.wishlistService.selectedWishlistProduct.encodedUrl = product.encodedImage;;
+    this.wishlistService.removeProductFromWishlist(this.userService.getUserName(), this.wishlistService.selectedWishlistProduct).subscribe(
+      res => {
+        console.log(res);
+        this.wishlistService.selectedWishlistProduct.productName = '';
+        this.wishlistService.selectedWishlistProduct.price = null;
+        this.wishlistService.selectedWishlistProduct.encodedUrl = '';
+      },
+      err => {
+        console.log(err);
+      }
+    );
+
   }
 
 

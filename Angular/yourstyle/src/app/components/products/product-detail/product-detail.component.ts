@@ -1,3 +1,4 @@
+import { NgForm } from '@angular/forms';
 import { WishlistService } from './../../../service/wishlist.service';
 import { UserServiceService } from './../../../service/user-service.service';
 import { CartService } from './../../../service/cart.service';
@@ -17,16 +18,20 @@ import { ProductServiceService } from 'src/app/service/product-service.service';
   providers: [NgbNavConfig]
 })
 export class ProductDetailComponent implements OnInit {
-
+  
+  emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  
   showSucessMessage: boolean;
-  message : string;
+  message: string;
   serverErrorMessages: string;
   product: any;
   cart: any;
-  msg : string;
-  selectedSize : string;
-  selectedColor : string;
-  counter: number =1;
+  msg: string;
+  selectedSize: string = '';
+  selectedColor: string = '';
+  counter: number = 1;
+  reviews: any;
+  reviewcount: number = 5;
   
 
   customOptions: OwlOptions = {
@@ -54,7 +59,7 @@ export class ProductDetailComponent implements OnInit {
     nav: true
   }
 
-  constructor(private wishlistService: WishlistService,private userService : UserServiceService, public productService: ProductServiceService, private cartService: CartService, config: NgbNavConfig, ratingConfig: NgbRatingConfig, private router: Router) {
+  constructor(private wishlistService: WishlistService, public userService: UserServiceService, public productService: ProductServiceService, private cartService: CartService, config: NgbNavConfig, ratingConfig: NgbRatingConfig, private router: Router) {
     ratingConfig.max = 5;
     config.destroyOnHide = false;
     config.roles = false;
@@ -66,7 +71,6 @@ export class ProductDetailComponent implements OnInit {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
     this.getAllProducts();
     this.getProductByName();
-
   }
 
   ngAfterViewInit(): void {
@@ -122,41 +126,47 @@ export class ProductDetailComponent implements OnInit {
     this.counter += 1;
   }
 
-  setCounterOne(){
-    this.counter=1;
+  setCounterOne() {
+    this.counter = 1;
   }
 
-  selectSizeHandler(event : any){
+  selectSizeHandler(event: any) {
     this.selectedSize = event.target.value;
   }
 
-  selectColorHandler(event : any){
+  selectColorHandler(event: any) {
     this.selectedColor = event.target.value;
   }
 
   //add product to cart
-  addProductToCart() {
+  addProductToCart(pro : any) {
 
     this.cartService.cartproduct.userName = this.userService.getUserName();
     this.cartService.selectedCartProduct.prodName = this.product.productName;
     this.cartService.selectedCartProduct.price = this.product.price;
-    this.cartService.selectedCartProduct.quantity= this.counter;
-    this.cartService.selectedCartProduct.color= this.selectedColor;
-    this.cartService.selectedCartProduct.size= this.selectedSize;
+    this.cartService.selectedCartProduct.quantity = this.counter;
+    this.cartService.selectedCartProduct.color = this.selectedColor;
+    this.cartService.selectedCartProduct.size = this.selectedSize;
     this.cartService.selectedCartProduct.imgurl = this.product.encodedImage;
     this.cartService.cartproduct.products = [this.cartService.selectedCartProduct];
-
+    if (this.selectedColor != '' && this.selectedColor != 'Choose an option' && this.selectedSize != 'Choose an option'  &&this.selectedSize != '') {
     this.cartService.addtoCart(this.cartService.cartproduct).subscribe(
       res => {
         console.log(res);
-        this.message=res['message'];
+        this.removeProductFromList(pro);
+        this.message = res['message'];
         this.showSucessMessage = true;
+        this.serverErrorMessages = '';
         setTimeout(() => this.showSucessMessage = false, 4000);
       },
       err => {
         console.log(err);
       }
-    )
+    );
+    }
+    else {
+      this.serverErrorMessages = 'Please select size and color.';
+    }
   }
 
   //out of stock logic
@@ -217,7 +227,65 @@ export class ProductDetailComponent implements OnInit {
         console.log(err);
       }
     );
-    
+
   }
-  
+
+  //reviews
+  getReviews() {
+    this.productService.getAllReviews(this.productService.getProdName(), this.reviewcount).subscribe(
+      res => {
+        this.reviews = res;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  publishReview(form: NgForm) {
+    this.productService.reviews.productName = this.productService.getProdName();
+    this.productService.reviews.review = [this.productService.selectedReview];
+    this.productService.publishReview(this.productService.reviews).subscribe(
+      res => {
+        console.log(res);
+        this.resetForm(form);
+        this.getReviews();
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  rating(event: any) {
+    this.productService.selectedReview.rating = event.target.parentElement.ariaValueNow;
+  }
+
+  arrayOne(n: number): any[] {
+    return Array(n);
+  }
+
+  intitialReviewCount() {
+    this.reviewcount = 5;
+  }
+
+  moreReviews() {
+    this.reviewcount += 5;
+    this.getReviews();
+  }
+
+  reloadWindow() {
+    window.location.reload();
+  }
+
+  resetForm(form: NgForm) {
+    this.productService.selectedReview = {
+      name: '',
+      email: '',
+      rating: null,
+      comment: ''
+    };
+    form.resetForm();
+  }
+
 }

@@ -37,7 +37,7 @@
             <div class="flex-w flex-c-m m-tb-10">
                 <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4"
                     (click)="isCollapsedFilter = !isCollapsedFilter" [attr.aria-expanded]="!isCollapsedFilter"
-                    aria-controls="collapseFilter">
+                    aria-controls="collapseFilter" style="display: none;">
                     <i class="fa fa-filter cl2 m-r-6 fs-15 trans-04"></i>
                     Filter
                 </div>
@@ -294,7 +294,17 @@
                         </div>
 
                         <div class="block2-txt-child2 flex-r p-t-3">
-                            <a (click)="addProductToWishlist(product)" class="btn-addwish-b2 dis-block pos-relative" triggers="click" [autoClose]="'outside'" ngbTooltip={{msg}}>
+                            <a *ngIf="this.userService.isLoggedIn()" (click)="addProductToWishlist(product)"
+                                class="btn-addwish-b2 dis-block pos-relative" triggers="click" [autoClose]="'outside'"
+                                ngbTooltip={{msg}}>
+                                <img class="icon-heart1 dis-block trans-04" src="assets/images/icons/icon-heart-01.png"
+                                    alt="ICON">
+                                <img class="icon-heart2 dis-block trans-04 ab-t-l"
+                                    src="assets/images/icons/icon-heart-02.png" alt="ICON">
+                            </a>
+                            <a *ngIf="!this.userService.isLoggedIn()"
+                                class="btn-addwish-b2 dis-block pos-relative tooltip100"
+                                data-tooltip="Please Login First">
                                 <img class="icon-heart1 dis-block trans-04" src="assets/images/icons/icon-heart-01.png"
                                     alt="ICON">
                                 <img class="icon-heart2 dis-block trans-04 ab-t-l"
@@ -309,7 +319,7 @@
         </div>
 
         <!-- Load more -->
-        <div class="flex-c-m flex-w w-full p-t-45">
+        <div class="flex-c-m flex-w w-full p-t-45" style="display: none;">
             <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
                 Load More
             </a>
@@ -375,7 +385,7 @@
 
                                             <div class="size-204">
                                                 <div class="bor8 bg0">
-                                                    <select class="options">
+                                                    <select class="options" (change)="selectSizeHandler($event)" required>
                                                         <option>Choose an option</option>
                                                         <option *ngFor="let size of product.size">{{size}}</option>
                                                     </select>
@@ -391,7 +401,7 @@
 
                                             <div class="size-204 respon6-next">
                                                 <div class="rs1-select2 bor8 bg0">
-                                                    <select class="options">
+                                                    <select class="options" (change)="selectColorHandler($event)" required>
                                                         <option>Choose an option</option>
                                                         <option *ngFor="let color of product.color">{{color}}</option>
                                                     </select>
@@ -419,12 +429,23 @@
 
                                                 <button
                                                     class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
-                                                    (click)="addProductToCart()">
+                                                    *ngIf="this.userService.isLoggedIn()"
+                                                    (click)="addProductToCart(product) ">
+                                                    Add to cart
+                                                </button>
+                                                <button
+                                                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 tooltip100"
+                                                    *ngIf="!this.userService.isLoggedIn()"
+                                                    data-tooltip="Please Login First" disabled>
                                                     Add to cart
                                                 </button>
                                                 <!-- Success message -->
                                                 <div class="success" *ngIf="showSucessMessage">
                                                     {{message}}
+                                                </div>
+                                                <!-- Error message -->
+                                                <div class="alert" *ngIf="serverErrorMessages">
+                                                    {{serverErrorMessages}}
                                                 </div>
                                             </div>
                                         </div>
@@ -433,10 +454,16 @@
                                     <!--  -->
                                     <div class="flex-w flex-m p-l-100 p-t-40 respon7">
                                         <div class="flex-m bor9 p-r-10 m-r-11">
-                                            <a  (click)="addProductToWishlist(product)"
-                                            triggers="click" [autoClose]="'outside'" ngbTooltip={{msg}}
+                                            <a *ngIf="this.userService.isLoggedIn()"
+                                                (click)="addProductToWishlist(product)"
                                                 class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+                                                triggers="click" [autoClose]="'outside'" ngbTooltip={{msg}}
                                                 data-tooltip="Add to Wishlist">
+                                                <i class="zmdi zmdi-favorite"></i>
+                                            </a>
+                                            <a *ngIf="!this.userService.isLoggedIn()"
+                                                class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+                                                data-tooltip="Please Login First">
                                                 <i class="zmdi zmdi-favorite"></i>
                                             </a>
                                         </div>

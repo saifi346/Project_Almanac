@@ -1,3 +1,5 @@
+import { Reviews } from './../models/reviews';
+import { SingleReview } from './../models/single-review';
 import { Product } from './../models/product';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -25,6 +27,19 @@ export class ProductServiceService {
     encodedImage: ''
   }
 
+  selectedReview : SingleReview = {
+    name : '',
+    email : '',
+    rating : null,
+    comment : ''
+  }
+
+  reviews : Reviews = {
+    id : '',
+    productName : '',
+    review : null
+  }
+  
   products: any = null;
 
 
@@ -71,6 +86,17 @@ export class ProductServiceService {
     return this.http.post("http://localhost:8081/products/upload", name);
   }
 
+
+  //reviews rest calls
+  getAllReviews(productName : string,count:number){
+    return this.http.get("http://localhost:8080/reviews/getreviews/" + `${productName}`+"?count="+count, this.noAuthHeader)
+  }
+
+  publishReview(review){
+    return this.http.post("http://localhost:8080/reviews/addreview/", review, this.noAuthHeader );
+  }
+
+  //helpers
   setProdName(prodName: string) {
     localStorage.setItem('prodName', prodName);
   }
