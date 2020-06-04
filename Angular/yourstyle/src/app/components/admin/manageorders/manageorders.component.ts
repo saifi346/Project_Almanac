@@ -12,8 +12,8 @@ import { Component, OnInit } from '@angular/core';
 export class ManageordersComponent implements OnInit {
 
   order: any;
-  selectedStatus: string = 'Active';
-  selectedOrderStatus: string = 'Active';
+  selectedStatus: string = 'New Order';
+  selectedOrderStatus: string = 'New Order';
   constructor(public orderService: OrderService, private productService: ProductServiceService, public userService: UserServiceService, private router: Router) { }
 
   ngOnInit(): void {

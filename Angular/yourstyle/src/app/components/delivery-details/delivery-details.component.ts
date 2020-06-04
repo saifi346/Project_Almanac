@@ -78,7 +78,7 @@ export class DeliveryDetailsComponent implements OnInit {
         price: this.cartService.cartproduct.products[i].price,
         quantity: this.cartService.cartproduct.products[i].quantity,
         deliveryAddress: this.collateAddress(),
-        status: 'Active',
+        status: 'New Order',
         imgurl: this.cartService.cartproduct.products[i].imgurl,
         username: this.orderService.order.username
       });
